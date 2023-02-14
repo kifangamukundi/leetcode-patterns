@@ -1,10 +1,10 @@
 // Given an array nums of n integers where nums[i] is in the range [1, n], return an array of all the integers in the range [1, n] that do not appear in nums.
 
-Input: nums = [4,3,2,7,8,2,3,1]
-Output: [5,6]
+// Input: nums = [4,3,2,7,8,2,3,1]
+// Output: [5,6]
 
-Input: nums = [1,1]
-Output: [2]
+// Input: nums = [1,1]
+// Output: [2]
 
 
 // The function first initializes an array seen of length n + 1 to keep track of which integers from the range [1, n] are present in the input array. It then loops through the input array, marking each seen integer as true in the seen array.
@@ -56,5 +56,3 @@ function findDisappearedNumbers(nums) {
 // The function modifies the input array by marking seen numbers as negative. For each number num in the array, it finds the index index of the corresponding number in the range [1, n] by subtracting 1 from num and taking the absolute value. If the number at index index is positive, it is marked as seen by changing its sign to negative.
 
 // Finally, the function loops through the input array again and adds any positive number (i.e., any number that was not seen) to the result array.
-  
-  
