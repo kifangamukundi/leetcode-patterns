@@ -49,3 +49,64 @@ function isPalindrome(head) {
   }
 
 // This modified function includes an early exit clause that checks if the list is too long (i.e., has more than 100,000 nodes) and returns false if it is. This avoids excessive memory usage when processing very long lists. Note that this is a fairly arbitrary limit, and you may want to adjust it depending on your specific use case.
+
+
+// You can determine if a singly linked list is a palindrome in O(n) time and O(1) space by using a two-pointer approach.
+
+// The basic idea is to use two pointers: a slow pointer and a fast pointer. The slow pointer moves one node at a time, while the fast pointer moves two nodes at a time. When the fast pointer reaches the end of the list, the slow pointer will be at the middle of the list.
+
+// While traversing the list, reverse the first half of the list by changing the direction of the next pointers. Then, compare the reversed first half of the list with the second half of the list. If they match, the list is a palindrome. If they don't match, the list is not a palindrome.
+
+function isPalindrome(head) {
+  if (!head || !head.next) {
+    return true;
+  }
+  
+  // Find the middle of the list using the two-pointer approach
+  let slow = head;
+  let fast = head;
+  while (fast && fast.next) {
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+  
+  // Reverse the first half of the list
+  let prev = null;
+  let curr = head;
+  while (curr !== slow) {
+    let next = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = next;
+  }
+  
+  // Compare the reversed first half with the second half of the list
+  let left = prev;
+  let right = slow;
+  if (fast) {
+    // The list has odd number of nodes, skip the middle node
+    right = right.next;
+  }
+  while (left && right) {
+    if (left.val !== right.val) {
+      return false;
+    }
+    left = left.next;
+    right = right.next;
+  }
+  
+  // Restore the original list by reversing the first half again
+  curr = prev;
+  prev = null;
+  while (curr) {
+    let next = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = next;
+  }
+  head.next = prev;
+  
+  return true;
+}
+
+// This function has a time complexity of O(n) and a space complexity of O(1), making it a more efficient solution for checking if a linked list is a palindrome.
